@@ -1,14 +1,15 @@
 @import '~normalize.css/normalize';
 
-$text-color: #000;
-$background-color: #fff;
-$border-color: #000;
-$border-width: 8px;
+$text-color: #fff;
+$background-color: #000;
+$border-color: #fff;
+$border-width: 2px;
 
 body {
   font-family: sans-serif;
   color: $text-color;
   background: $background-color;
+  overflow: hidden;
 }
 
 .main {
@@ -16,4 +17,7 @@ body {
   height: 100vh;
   border: $border-width solid $border-color;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
