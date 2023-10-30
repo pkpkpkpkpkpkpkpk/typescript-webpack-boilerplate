@@ -1,10 +1,10 @@
-import generateDomElements from './GenerateDomElements';
-import * as events from './tools/Events';
-import * as helpers from './tools/Helpers';
+import generateDomElements from './elements/GenerateDomElements';
+// import * as helpers from './tools/Helpers';
+// import * as events from './components/Events';
 
 const onDOMContentLoaded = () => {
-  // events.init();
   // helpers.init();
+  // events.init();
 
   
 }

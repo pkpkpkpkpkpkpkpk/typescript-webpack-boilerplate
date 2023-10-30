@@ -1,4 +1,4 @@
-import * as helpers from './Helpers';
+import * as helpers from './../tools/Helpers';
 
 export const init = () => {
   document.body.onkeyup = e => {
