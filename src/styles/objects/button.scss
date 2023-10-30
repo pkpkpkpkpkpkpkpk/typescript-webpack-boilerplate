@@ -1,0 +1,12 @@
+.btn {
+  cursor: pointer;
+  transition: $transition-default;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    filter: brightness(90%);
+  }
+}

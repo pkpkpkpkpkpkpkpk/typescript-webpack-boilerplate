@@ -1,23 +1,23 @@
+@charset "UTF-8";
+
+//resets
 @import '~normalize.css/normalize';
 
-$text-color: #fff;
-$background-color: #000;
-$border-color: #fff;
-$border-width: 2px;
+//settings
+@import './settings/color';
+@import './settings/transition';
+@import './settings/size';
 
-body {
-  font-family: sans-serif;
-  color: $text-color;
-  background: $background-color;
-  overflow: hidden;
-}
+//tools
+@import './tools/animation';
 
-.main {
-  width: 100%;
-  height: 100vh;
-  border: $border-width solid $border-color;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+//elements
+@import './elements/body';
+
+//objects
+@import './objects/button';
+@import './objects/icon';
+@import './objects/loader';
+
+//components
+@import './components/main';
