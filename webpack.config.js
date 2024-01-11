@@ -14,7 +14,7 @@ module.exports = {
     new HtmlWebpackPlugin({ title: 'Project' }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'src/assets/sounds', to: 'sounds' },
+        { from: 'src/assets/audio', to: 'audio' },
       ]
     }),
   ],

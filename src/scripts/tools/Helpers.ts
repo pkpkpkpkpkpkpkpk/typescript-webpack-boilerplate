@@ -1,45 +1,8 @@
 import * as constants from './Constants';
 
-let loaderEl:HTMLDivElement;
-let startSound:HTMLAudioElement;
-let endSound:HTMLAudioElement;
-let successSound:HTMLAudioElement;
-
-let isLoading = false;
-
-export const init = () => {
-  initLoader();
-  initSounds();
-}
-
-export const initLoader = () => {
-  loaderEl = document.querySelector('[data-loader]');
-}
-
-export const initSounds = () => {
-  startSound = new Audio('sounds/start.wav');
-  endSound = new Audio('sounds/end.wav');
-  successSound = new Audio('sounds/success.wav');
-}
-
-export const toggleLoader = () => {
-  if(!isLoading) {
-    loaderEl.classList.remove(constants.CLASS_HIDDEN);
-    isLoading = true;
-  } else {
-    loaderEl.classList.add(constants.CLASS_HIDDEN);
-    isLoading = false;
-  }
-}
-
-export const playSound = (sound:'start'|'end'|'success', onEnd?:() => void) => {
-  let soundEl:HTMLAudioElement;
-  const soundName = `${sound}Sound`;
-  soundEl = eval(soundName);
-
-  if(onEnd) soundEl.onended = onEnd;
-
-  soundEl.play();
+export const playAudio = (sound:HTMLAudioElement, onEnd?:() => void) => {
+  if(onEnd) sound.onended = onEnd;
+  sound.play();
 }
 
 export const speak = (text:string, onEnd?:() => void) => {
@@ -65,12 +28,77 @@ export const removeState = (state:'example') => {
   }
 }
 
-export const scrollToTopOfElement = (element:HTMLElement) => {
-  element.scrollTop = 0;
+export const isState = (state:'example') => {
+  switch (state) {
+    case 'example':
+      return document.body.hasAttribute(constants.ATTR_EXAMPLE_STATE);
+  }
 }
 
-export const scrollToBottomOfElement = (element:HTMLElement) => {
-  element.scrollTop = element.scrollHeight;
+export const scrollTo = (yDirection:'top'|'bottom'|'none', xDirection:'left'|'right'|'none', containerElement:HTMLElement, relativeElement?:HTMLElement) => {
+  switch (yDirection) {
+    case 'top':
+      if(relativeElement) {
+        containerElement.scrollTop = relativeElement.offsetTop;
+        break;
+      }
+      containerElement.scrollTop = 0;
+      break;
+    case 'bottom':
+      if(relativeElement) {
+        containerElement.scrollTop = relativeElement.offsetTop + relativeElement.offsetHeight;
+        break;
+      }
+      containerElement.scrollTop = containerElement.scrollHeight;
+      break;
+    case 'none':
+      break;
+  }
+  
+  switch (xDirection) {
+    case 'left':
+      if(relativeElement) {
+        containerElement.scrollLeft = relativeElement.offsetLeft;
+        break
+      }
+      containerElement.scrollLeft = 0;
+      break;
+    case 'right':
+      if(relativeElement) {
+        containerElement.scrollLeft = relativeElement.offsetLeft + relativeElement.offsetWidth;
+        break
+      }
+      containerElement.scrollLeft = containerElement.scrollWidth;
+      break;
+    case 'none':
+      break;
+  }
+}
+
+export const tabFocusTrap = (e:KeyboardEvent) => {
+  const tabElements = document.querySelectorAll('[tabindex="0"]:not(.is-hidden), [contenteditable]');
+  if(!tabElements.length) return;
+  
+  if(!Array.from(tabElements).includes(document.activeElement)) {
+    (tabElements[0] as HTMLElement).focus();
+    return;
+  }
+  
+  const isShiftTab = e.shiftKey;
+  
+  for (let i = 0; i < tabElements.length; i++) {
+    if(document.activeElement != tabElements[i]) continue;
+    const tabIndex = i + 1;
+    const shiftTabIndex = i - 1;
+    let nextIndexModulo = modulo(tabIndex, tabElements.length);
+    if(isShiftTab) nextIndexModulo = modulo(shiftTabIndex, tabElements.length);
+    const nextFocusEl = tabElements[nextIndexModulo] as HTMLElement;
+    nextFocusEl.focus();
+    
+    selectTextUponElementFocus(nextFocusEl);
+
+    break;
+  }
 }
 
 export const selectTextUponElementFocus = (element:HTMLElement) => {

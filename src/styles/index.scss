@@ -5,14 +5,15 @@
 
 //settings
 @import './settings/color';
+@import './settings/font';
 @import './settings/transition';
-@import './settings/size';
 
 //tools
 @import './tools/animation';
 
 //elements
 @import './elements/body';
+@import './elements/main';
 
 //objects
 @import './objects/button';
@@ -20,4 +21,3 @@
 @import './objects/loader';
 
 //components
-@import './components/main';

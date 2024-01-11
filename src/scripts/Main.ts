@@ -1,13 +1,12 @@
-import generateDomElements from './elements/GenerateDomElements';
-// import * as helpers from './tools/Helpers';
-// import * as events from './components/Events';
+import mainElement from './elements/MainElement';
+import * as events from './tools/Events';
 
-const onDOMContentLoaded = () => {
-  // helpers.init();
-  // events.init();
+// Generate HTML DOM elements
+document.body.appendChild(mainElement());
+
+// After DOM is loaded, run scripts
+document.addEventListener('DOMContentLoaded', () => {
+  events.init();
 
   
-}
-
-document.body.appendChild(generateDomElements());
-document.addEventListener('DOMContentLoaded', () => onDOMContentLoaded());
+});
